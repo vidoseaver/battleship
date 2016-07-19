@@ -15,4 +15,7 @@ You will lose because I am cheating! Muahahahahaa
 Would you like to (p)lay, or (q)uit?"
   end
 
+  def coordinate_not_on_the_board
+    "Your cordinate(s) were not on the board"
+  end
 end

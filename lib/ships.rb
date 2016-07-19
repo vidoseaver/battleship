@@ -1,14 +1,26 @@
-class ship
+require "./lib/player"
+require "./lib/board"
+require "./lib/communication"
+
+class Ship
+  attr_reader :destroyer, :battleship
+
   def initialize
-    @destroyer_cords = []
-  def destroyer(start, end)
+    @destroyer_coordinates = []
+    # @board = Board.new
+    @destroyer = "destroyer"
+    @battleship = "battleship"
+    @communication = Communication.new
+    @horizontal = false
+    @vertical = false
   end
 
-  def destroyer_placer
-    puts "Ok lets place your destroyer, it takes two spaces\n
-    remember, the coordinates you give me must be adjacent.\n
-    Please give me the starting coordinate"
-    @destroyer_cords << gets.chomp
+  def destroyer_size
+    2
+  end
+
+  def battleship_size
+    3
   end
 
 end
