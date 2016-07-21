@@ -1,13 +1,9 @@
-require "./lib/board"
-require "./lib/ships"
-
 class Player
-  attr_reader   :name
+  attr_reader   :name,
                 :first_ship_coordinates
 
 
-
-  def name
+  def set_name
     @name = gets.chomp
   end
 

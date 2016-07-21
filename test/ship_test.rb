@@ -18,53 +18,14 @@ class ShipTest < MiniTest::Test
     assert_equal 3, @battleship.battleship_size
   end
 
-  def test_user_input_6
-    assert_equal true, @destroyer.user_input_6?("a1, a2")
-  end
-
-  def test_proper_format?
-
-    assert_equal true, @destroyer.proper_format?("a1, a2")
-  end
-
-  def test_input_cleaner
-
-    assert_equal "a1a2", @destroyer.input_cleaner("a1, a2")
-
-  end
-
-  def test_is_the_first_valid?
-
-    assert_equal true, @destroyer.is_the_first_valid?("a1a2")
-    assert_equal false, @destroyer.is_the_first_valid?("a5a2")
-  end
-
-  def test_is_the_second_valid?
-
-    assert_equal true, @destroyer.is_the_second_valid?("a1a2")
-    assert_equal false, @destroyer.is_the_second_valid?("a1a5")
-  end
-
-  def test_destroyer_congruent?
-    assert_equal true, @destroyer.destroyer_congruent?("a1a2")
-    assert_equal true, @destroyer.destroyer_congruent?("a1b1")
-    assert_equal true, @destroyer.destroyer_congruent?("b1a1")
-    assert_equal true, @destroyer.destroyer_congruent?("d3c3")
-    assert_equal false, @destroyer.destroyer_congruent?("a1a1")
-    assert_equal false, @destroyer.destroyer_congruent?("a1d1")
-    assert_equal false, @destroyer.destroyer_congruent?("a1d5")
-  end
 
   def test_writes_destroyer_coordinates
 
     destroyer1 = Ship.new
     destroyer2 = Ship.new
 
-    destroyer1.destroyer_congruent?("a1a2")
-    destroyer2.destroyer_congruent?("a1b2")
-
-    assert_equal ["a1","a2"],destroyer1.destroyer_coordinates_writer
-    assert_equal ["a1","b2"],destroyer2.destroyer_coordinates_writer
+    assert_equal ["a1","a2"],destroyer1.destroyer_coordinates_writer("a1a2")
+    assert_equal ["a1","b2"],destroyer2.destroyer_coordinates_writer("a1b2")
   end
 
   def test_battleship_congruent?
@@ -117,8 +78,7 @@ class ShipTest < MiniTest::Test
   def test_it_writes_destroyer_coordinates_to_board
     battleship1 = Ship.new
     player_ship_board = Board.new
-    battleship1.destroyer_congruent?("a1b1")
-    battleship1.destroyer_coordinates_writer
+    battleship1.destroyer_coordinates_writer("a1b1")
 
 
     assert_equal [[" ", " 1", " 2", " 3", " 4"], ["A", "d", "a2", "a3", "a4"], ["B", "d", "b2", "b3", "b4"], ["C", "c1", "c2", "c3", "c4"], ["D", "d1", "d2", "d3", "d4"]], battleship1.coordinate_to_board_pusher(battleship1.destroyer_coordinates,"d" )
@@ -127,8 +87,8 @@ class ShipTest < MiniTest::Test
   def test_the_battleship_and_the_destroyer_overlap?
     battleship1 = Ship.new
     player_ship_board = Board.new
-    battleship1.destroyer_congruent?("a1b1")
-    battleship1.destroyer_coordinates_writer
+
+    battleship1.destroyer_coordinates_writer("a1b1")
     battleship1.coordinate_to_board_pusher(battleship1.destroyer_coordinates,"d" )
     battleship1.synthesize_a_vertical_ships_coordinate("a1c1")
     battleship1.battleship_coordinates_writer
@@ -137,8 +97,8 @@ class ShipTest < MiniTest::Test
 
     battleship2 = Ship.new
     player_ship_board = Board.new
-    battleship2.destroyer_congruent?("a1b1")
-    battleship2.destroyer_coordinates_writer
+
+    battleship2.destroyer_coordinates_writer("a1b1")
     battleship2.coordinate_to_board_pusher(battleship2.destroyer_coordinates,"d" )
     battleship2.synthesize_a_vertical_ships_coordinate("a3c3")
     battleship2.battleship_coordinates_writer

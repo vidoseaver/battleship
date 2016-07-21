@@ -10,6 +10,7 @@ class Board
                         "b1"=>"b1", "b2"=>"b2", "b3"=>"b3", "b4"=>"b4",
                         "c1"=>"c1", "c2"=>"c2", "c3"=>"c3", "c4"=>"c4",
                         "d1"=>"d1", "d2"=>"d2", "d3"=>"d3", "d4"=>"d4"}
+    update_board
 
   end
 
@@ -22,20 +23,23 @@ class Board
   end
 
   def print_board(title)
-    update_board
+     update_board
      rows = []
-     rows << @alternate_board[0]
+     rows << @board[0]
      rows << :separator
-     rows << @alternate_board[1]
+     rows << @board[1]
      rows << :separator
-     rows << @alternate_board[2]
+     rows << @board[2]
      rows << :separator
-     rows << @alternate_board[3]
+     rows << @board[3]
      rows << :separator
-     rows << @alternate_board[4]
+     rows << @board[4]
      table = Terminal::Table.new :title => "#{title}",:rows => rows
      puts table
      "it looks sick, thank you"
- end
+  end
 
 end
+#
+# thing = Board.new
+# thing.print_board("Baddass_Board")

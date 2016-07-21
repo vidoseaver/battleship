@@ -1,12 +1,13 @@
-require "./lib/player"
 require "./lib/board"
-require "./lib/communication"
+
 
 class Ship
   attr_reader :destroyer,
               :battleship,
-              :destroyer_coordinates
-              :battleship_coordinates
+              :destroyer_coordinates,
+              :battleship_coordinates,
+              :board,
+              :player_boat_board
 
 
   def initialize
@@ -15,7 +16,6 @@ class Ship
     @board = Board.new
     @destroyer = "destroyer"
     @battleship = "battleship"
-    @communication = Communication.new
     @horizontal = false
     @vertical = false
     @player_boat_board = Board.new
@@ -29,59 +29,18 @@ class Ship
     3
   end
 
-  def user_input_6?(input)
-    input.chars.length == 6
-  end
 
-  def proper_format?(input)
-    if user_input_6?(input) && input.chars[2]+input.chars[3] == ", "
-      true
+
+  def destroyer_coordinates_writer(input)
+    input = input.scan(/../)
+    input.each do |character|
+          @destroyer_coordinates << character
     end
-  end
-
-  def input_cleaner(input)
-    cleaned_input = input[0]+input[1]+input[-2]+input[-1]
-    cleaned_input
-  end
-
-  def is_the_first_valid?(input)
-    input.downcase.chars
-    first_point = input[0]+input[1]
-    @board.empty_board.keys.any? do |key|
-       key == first_point
-    end
-  end
-
-  def is_the_second_valid?(input)
-    input.downcase.chars
-    second_point = input[2]+input[3]
-    @board.empty_board.keys.any? do |key|
-       key == second_point
-    end
-  end
-
-  def destroyer_congruent?(input)
-    @arrayed = input.chars
-
-    if @arrayed[0] == @arrayed[2] && (@arrayed[1].to_i - @arrayed[3].to_i).abs == 1
-      true
-    elsif @arrayed[1] == @arrayed[3] && (@arrayed[0].ord - @arrayed[2].ord).abs == 1
-      true
-    else
-      false
-    end
-  end
-
-  def destroyer_coordinates_writer
-      @destroyer_coordinates << (@arrayed[0] + @arrayed[1])
-      @destroyer_coordinates << (@arrayed[2] + @arrayed[3])
-      @destroyer_coordinates
   end
 
 
   def battleship_congruent?(input)
     @arrayed = input.chars
-
     if @arrayed[0] == @arrayed[2] && (@arrayed[1].to_i - @arrayed[3].to_i).abs == 2
       true
     elsif @arrayed[1] == @arrayed[3] && (@arrayed[0].ord - @arrayed[2].ord).abs == 2
@@ -141,8 +100,6 @@ class Ship
 
 
   def coordinate_to_board_pusher(array_of_coordinates, thing_to_go_there)
-
-
     array_of_coordinates.each do |coordinate|
       @player_boat_board.empty_board[coordinate] = thing_to_go_there
     end

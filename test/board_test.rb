@@ -10,13 +10,13 @@ class BoardTest < MiniTest::Test
   end
 
   def test_empty_board
-    assert_equal "empty", @board.empty_board["a1"]
+    assert_equal "a1", @board.empty_board["a1"]
   end
 
   def test_alternate_board
     alt_test = Board.new
 
-    assert_equal "a1", @board.alternate_board[1][1]
+    assert_equal "a1", @board.board[1][1]
   end
   def test_it_prints_a_dope_ass_board
     assert_equal "it looks sick, thank you", @board.print_board("badass board")
